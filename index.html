@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-pt-24">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pequeños Milagros Buscando Hogar</title>
+    
+    <!-- Google Fonts for modern typography: Quicksand -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Quicksand', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            200: '#fecdd3',
+                            300: '#fda4af',
+                            400: '#fb7185',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                            700: '#be123c',
+                            800: '#9f1239',
+                            900: '#881337',
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 20px 40px -15px rgba(244, 63, 94, 0.3)',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        drift: {
+                            '0%, 100%': { transform: 'translateX(0) translateY(0) rotate(0deg)' },
+                            '50%': { transform: 'translateX(20px) translateY(-10px) rotate(10deg)' },
+                        },
+                        spinSlow: {
+                            '0%': { transform: 'rotate(0deg)' },
+                            '100%': { transform: 'rotate(360deg)' },
+                        }
+                    },
+                    animation: {
+                        'float-slow': 'float 6s ease-in-out infinite',
+                        'float-fast': 'float 4s ease-in-out infinite',
+                        'drift-slow': 'drift 10s ease-in-out infinite',
+                        'spin-slow': 'spinSlow 15s linear infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Quicksand', sans-serif; scroll-behavior: smooth; }
+        
+        /* Ocultar barra de scroll para el carrusel pero mantener funcionalidad */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Utilidad para smooth transitions de ocultamiento de cards con filtros */
+        .card-transition { transition: all 0.4s ease-in-out; }
+        .hidden-card { opacity: 0; width: 0 !important; margin: 0 !important; padding: 0 !important; overflow: hidden; }
+    </style>
+</head>
+<body class="bg-stone-50 min-h-screen relative overflow-x-hidden text-stone-700 pb-16">
+
+    <!-- Navbar flotante de Capítulos -->
+    <nav class="fixed top-2 w-full z-30 px-4 pointer-events-none hidden md:block">
+        <div class="max-w-max mx-auto bg-white/70 backdrop-blur-md px-6 py-3 rounded-full shadow-sm flex gap-6 text-[13px] font-bold text-stone-500 pointer-events-auto border border-white">
+            <a href="#capitulo-1" class="hover:text-brand-500 transition-colors">1. El Flechazo</a>
+            <a href="#capitulo-2" class="hover:text-brand-500 transition-colors">2. Galería Estelar</a>
+            <a href="#capitulo-3" class="hover:text-stone-700 transition-colors">3. La Decisión</a>
+            <a href="#capitulo-4" class="hover:text-brand-500 text-brand-600 transition-colors">4. El Compromiso</a>
+        </div>
+    </nav>
+
+    <!-- Decoraciones Flotantes Globales -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <i data-lucide="cloud" class="absolute top-[10%] left-[5%] w-32 h-32 text-stone-300/60 animate-drift-slow blur-[1px]"></i>
+        <i data-lucide="sun" class="absolute top-[15%] right-[10%] w-24 h-24 text-brand-300/60 animate-spin-slow"></i>
+        <i data-lucide="star" class="absolute top-[35%] left-[20%] w-12 h-12 text-brand-400/50 rotate-45 animate-float-slow"></i>
+        <i data-lucide="heart" class="absolute top-[45%] right-[8%] w-16 h-16 text-brand-500/40 -rotate-12 animate-float-fast"></i>
+        <i data-lucide="sparkle" class="absolute top-[65%] left-[8%] w-10 h-10 text-orange-400/60 animate-spin-slow"></i>
+        <i data-lucide="cloud" class="absolute bottom-[20%] right-[15%] w-40 h-40 text-stone-300/60 animate-drift-slow blur-[2px]"></i>
+        <i data-lucide="moon" class="absolute bottom-[10%] left-[10%] w-20 h-20 text-brand-400/50 animate-float-slow"></i>
+        <i data-lucide="star" class="absolute bottom-[5%] right-[25%] w-8 h-8 text-brand-300/60 rotate-12 animate-float-fast"></i>
+        <i data-lucide="sparkle" class="absolute top-[80%] right-[30%] w-14 h-14 text-stone-400/50 animate-spin-slow"></i>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- CAPÍTULO 1: EL FLECHAZO (Hero Section)         -->
+    <!-- ============================================== -->
+    <section id="capitulo-1" class="relative pt-16 md:pt-28 pb-20 px-6 overflow-hidden min-h-[90vh] flex flex-col justify-center border-b border-brand-100/50">
+        
+        <div class="max-w-5xl mx-auto w-full flex flex-col md:flex-row items-center gap-10 lg:gap-16 z-10 relative">
+            
+            <div class="flex-1 text-center md:text-left">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-brand-50 text-brand-500 rounded-full font-bold text-sm tracking-wide mb-6 border border-brand-100 shadow-sm">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i> Capítulo 1
+                </div>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-stone-800 tracking-tight leading-tight mb-4">
+                    Pequeños Milagros <br> <span class="text-brand-500">Buscando Hogar</span>
+                </h1>
+                <p class="text-lg md:text-xl text-stone-500 font-medium mb-6 max-w-lg mx-auto md:mx-0 leading-relaxed">
+                    Conoce a nuestra camada de 5 valientes sobrevivientes: <strong class="text-brand-500">3 exploradores naranjas</strong> y <strong class="text-stone-600">2 elegantes panteritas negras</strong>.
+                </p>
+
+                <!-- FECHA DE ENTREGA O DESTETE -->
+                <div class="inline-block bg-orange-50 border border-orange-200 rounded-2xl px-5 py-4 mb-8 text-left shadow-sm">
+                    <div class="flex items-start gap-4">
+                        <i data-lucide="calendar-heart" class="w-7 h-7 text-orange-500 mt-1 shrink-0"></i>
+                        <p class="text-[14px] md:text-[15px] text-stone-600 font-medium leading-snug">
+                            La entrega oficial de los pequeños gatitos se realizará alrededor del <strong class="text-stone-800 font-black">10 de mayo de 2026</strong>, una vez que haya concluido de forma segura su etapa de destete.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start">
+                    <a href="#capitulo-2" class="bg-brand-500 hover:bg-brand-600 text-white px-8 py-4 rounded-full font-bold shadow-soft transform hover:-translate-y-1 transition-all flex items-center gap-2">
+                        Quiero Conocerlos <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#capitulo-4" class="text-stone-400 hover:text-stone-600 font-bold px-6 py-4 underline transition-colors">
+                        Ir al Cuestionario Directamente
+                    </a>
+                </div>
+            </div>
+
+            <div class="flex-1 w-full max-w-sm lg:max-w-md relative">
+                <!-- Imagen Grupal de la Camada -->
+                <!-- CAMBIAR 'gatitos.png' POR LA URL DE LA IMAGEN EN GOOGLE DRIVE DE LA FOTO REAL DEL GRUPO -->
+                <div class="aspect-square bg-stone-100 rounded-[3rem] rotate-3 hover:rotate-0 transition-transform duration-500 overflow-hidden shadow-2xl border-4 border-white relative z-10">
+                    <div class="absolute top-5 right-5 z-20 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest text-white flex items-center gap-1.5 shadow-sm border border-white/20">
+                        <i data-lucide="camera" class="w-3.5 h-3.5"></i> Imagen Referencial
+                    </div>
+                    <img src="gatitos.png" alt="Foto Familia Gatitos" class="w-full h-full object-cover">
+                    <!-- Overlay Suave -->
+                    <div class="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-stone-900/40 to-transparent"></div>
+                    <div class="absolute bottom-6 left-6 text-white font-bold text-lg [text-shadow:_0_2px_4px_rgb(0_0_0_/_40%)]">La Camada (45 días)</div>
+                </div>
+                <!-- Decoration back object -->
+                <div class="absolute inset-0 bg-brand-200 rounded-[3rem] -rotate-6 scale-[0.95] z-0 blur-[2px]"></div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- CAPÍTULO 2: GALERÍA ESTELAR (Carrusel)         -->
+    <!-- ============================================== -->
+    <section id="capitulo-2" class="relative pt-20 pb-20 w-full bg-white/60 backdrop-blur-sm border-b border-stone-100 rounded-[4rem] -mt-10 z-20 shadow-sm">
+        <div class="max-w-6xl mx-auto px-6 mb-10 flex flex-col md:flex-row items-center justify-between gap-6">
+            
+            <div>
+                <div class="flex justify-center md:justify-start">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-brand-50 text-brand-500 rounded-full font-bold text-sm tracking-wide mb-6 border border-brand-100 shadow-sm">
+                        <i data-lucide="star" class="w-4 h-4"></i> Capítulo 2
+                    </div>
+                </div>
+                <h2 class="text-4xl font-black text-stone-700 text-center md:text-left tracking-tight">Galería Estelar</h2>
+            </div>
+
+            <!-- Filtros Javascript -->
+            <div class="flex flex-wrap items-center justify-center gap-3 bg-stone-50 p-2 rounded-full border border-stone-100">
+                <button onclick="filterKittens('all')" id="btn-filter-all" class="px-5 py-2 rounded-full text-sm font-bold bg-white shadow-sm text-stone-700 transition-all border border-stone-100">Todos</button>
+                <button onclick="filterKittens('naranja')" id="btn-filter-naranja" class="px-5 py-2 rounded-full text-sm font-bold text-stone-500 hover:text-stone-700 transition-all border border-transparent">Team Naranja</button>
+                <button onclick="filterKittens('negro')" id="btn-filter-negro" class="px-5 py-2 rounded-full text-sm font-bold text-stone-500 hover:text-stone-700 transition-all border border-transparent">Team Negro</button>
+            </div>
+            
+        </div>
+
+        <!-- Carousel -->
+        <div class="relative max-w-6xl mx-auto group">
+            
+            <!-- Flechas de navegación (Desktop) -->
+            <button onclick="scrollCarousel(-1)" class="hidden md:flex absolute left-4 top-[40%] -translate-y-1/2 z-20 w-14 h-14 bg-white/90 hover:bg-white backdrop-blur-md rounded-full items-center justify-center text-brand-500 shadow-[0_10px_30px_rgba(0,0,0,0.1)] opacity-0 group-hover:opacity-100 transition-all hover:scale-105 border border-stone-50 cursor-pointer">
+                <i data-lucide="chevron-left" class="w-8 h-8"></i>
+            </button>
+            <button onclick="scrollCarousel(1)" class="hidden md:flex absolute right-4 top-[40%] -translate-y-1/2 z-20 w-14 h-14 bg-white/90 hover:bg-white backdrop-blur-md rounded-full items-center justify-center text-brand-500 shadow-[0_10px_30px_rgba(0,0,0,0.1)] opacity-0 group-hover:opacity-100 transition-all hover:scale-105 border border-stone-50 cursor-pointer">
+                <i data-lucide="chevron-right" class="w-8 h-8"></i>
+            </button>
+
+            <!-- Contenedor del Scroll -->
+            <div id="carousel-container" class="flex gap-6 overflow-x-auto px-6 md:px-12 pb-14 hide-scrollbar snap-x snap-mandatory scroll-smooth">
+                
+                <!-- GATITO 1 (NARANJA) -->
+                <div data-color="naranja" class="kitten-card snap-start shrink-0 w-[260px] md:w-[290px] bg-white rounded-[2rem] p-4 shadow-xl shadow-brand-500/5 hover:-translate-y-2 card-transition border border-stone-50 relative">
+                    <!-- Estado de Adopción (Disponible) -->
+                    <div class="absolute top-4 right-4 z-30 bg-green-100 text-green-700 border-2 border-brand-50 font-black text-[10px] uppercase tracking-widest px-4 py-1.5 rounded-full shadow-md flex items-center gap-1.5 pointer-events-none">
+                        <div class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div> Disponible
+                    </div>
+
+                    <div class="relative w-full h-[300px] rounded-3xl overflow-hidden mb-4 border-[3px] border-brand-50 group-img cursor-pointer" 
+                         onclick="openModal('gatito_naranja_1.png', 'Cheddar', 'Naranja', 'El explorador por excelencia. Su tremenda energía curiosa lo lleva a inspeccionar cada rincón. ¡Te llenará la casa de vida y travesuras divertidas!', 'Macho', '45 días', '¡Explorador!')">
+                        <!-- CAMBIAR 'gatito_naranja_1.png' POR LA URL EN DRIVE (EJ. https://drive.google.com/uc?id=...) -->
+                        <div class="absolute top-3 left-3 z-20 bg-black/50 backdrop-blur-sm px-2 py-1 rounded-[6px] text-[8px] font-black uppercase tracking-widest text-white/90 flex items-center gap-1 shadow-sm border border-white/20 pointer-events-none">
+                            <i data-lucide="camera" class="w-3 h-3"></i> Referencial
+                        </div>
+                        <img src="gatito_naranja_1.png" alt="Cheddar" class="w-full h-full object-cover transform transition-transform duration-700 hover:scale-110">
+                        <div class="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest text-brand-500 flex items-center gap-1 shadow-sm">
+                            <i data-lucide="zap" class="w-3 h-3"></i> Team Naranja
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-2xl font-black text-stone-800 mb-0.5">Cheddar</h3>
+                    <p class="text-brand-500 font-bold text-[13px] mb-4">¡Explorador y Juguetón!</p>
+                    <button onclick="openModal('gatito_naranja_1.png', 'Cheddar', 'Naranja', 'El explorador por excelencia. Su tremenda energía curiosa lo lleva a inspeccionar cada rincón. ¡Te llenará la casa de vida y travesuras divertidas!', 'Macho', '45 días', '¡Explorador!')" 
+                            class="w-full bg-stone-50 hover:bg-brand-50 text-stone-500 hover:text-brand-600 font-bold py-3.5 rounded-2xl transition-all text-[15px] flex items-center justify-center gap-2">
+                        Ver Perfil <i data-lucide="paw-print" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- GATITO 2 (NEGRO) -->
+                <div data-color="negro" class="kitten-card snap-start shrink-0 w-[260px] md:w-[290px] bg-white rounded-[2rem] p-4 shadow-xl shadow-stone-400/5 hover:-translate-y-2 card-transition border border-stone-50 relative">
+                    <!-- Estado de Adopción -->
+                    <div class="absolute top-4 right-4 z-30 bg-green-100 text-green-700 border-2 border-brand-50 font-black text-[10px] uppercase tracking-widest px-4 py-1.5 rounded-full shadow-md flex items-center gap-1.5 pointer-events-none">
+                        <div class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div> Disponible
+                    </div>
+
+                    <div class="relative w-full h-[300px] rounded-3xl overflow-hidden mb-4 border-[3px] border-stone-100 cursor-pointer"
+                         onclick="openModal('gatito_negro_1.png', 'Ónix', 'Negro', 'Una preciosa bolita de carbón que romperá cualquier estigma de mala suerte brindándote todo su amor. Parece muy tímido, pero una vez que gana confianza, empezará a amasar en tus piernas sin parar.', 'Macho', '45 días', 'Dulce y Leal')">
+                        <!-- CAMBIAR 'gatito_negro_1.png' POR LA URL EN DRIVE -->
+                        <div class="absolute top-3 left-3 z-20 bg-black/50 backdrop-blur-sm px-2 py-1 rounded-[6px] text-[8px] font-black uppercase tracking-widest text-white/90 flex items-center gap-1 shadow-sm border border-white/20 pointer-events-none">
+                            <i data-lucide="camera" class="w-3 h-3"></i> Referencial
+                        </div>
+                        <img src="gatito_negro_1.png" alt="Ónix" class="w-full h-full object-cover transform transition-transform duration-700 hover:scale-110">
+                        <div class="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest text-stone-700 flex items-center gap-1 shadow-sm">
+                            <i data-lucide="moon" class="w-3 h-3"></i> Team Negro
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-2xl font-black text-stone-800 mb-0.5">Ónix</h3>
+                    <p class="text-stone-500 font-bold text-[13px] mb-4">Elegante Bolita de Carbón</p>
+                    <button onclick="openModal('gatito_negro_1.png', 'Ónix', 'Negro', 'Una preciosa bolita de carbón que romperá cualquier estigma de mala suerte brindándote todo su amor. Parece muy tímido, pero una vez que gana confianza, empezará a amasar en tus piernas sin parar.', 'Macho', '45 días', 'Dulce y Leal')" 
+                            class="w-full bg-stone-50 hover:bg-stone-100 text-stone-500 hover:text-stone-700 font-bold py-3.5 rounded-2xl transition-all text-[15px] flex items-center justify-center gap-2">
+                        Ver Perfil <i data-lucide="paw-print" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- GATITO 3 (NARANJA) -->
+                <div data-color="naranja" class="kitten-card snap-start shrink-0 w-[260px] md:w-[290px] bg-white rounded-[2rem] p-4 shadow-xl shadow-brand-500/5 hover:-translate-y-2 card-transition border border-stone-50 relative">
+                    <div class="absolute top-4 right-4 z-30 bg-green-100 text-green-700 border-2 border-brand-50 font-black text-[10px] uppercase tracking-widest px-4 py-1.5 rounded-full shadow-md flex items-center gap-1.5 pointer-events-none">
+                        <div class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div> Disponible
+                    </div>
+
+                    <div class="relative w-full h-[300px] rounded-3xl overflow-hidden mb-4 border-[3px] border-brand-50 cursor-pointer"
+                         onclick="openModal('gatito_naranja_2.png', 'Fuego', 'Naranja', 'El dormilón empedernido. Su sitio favorito en el universo es cualquier manta suave que le coloques. Súper cariñoso; una máquina generadora de ronroneos puros.', 'Macho', '45 días', 'Ronroneador Empedernido')">
+                        <!-- CAMBIAR 'gatito_naranja_2.png' POR LA URL EN DRIVE -->
+                        <div class="absolute top-3 left-3 z-20 bg-black/50 backdrop-blur-sm px-2 py-1 rounded-[6px] text-[8px] font-black uppercase tracking-widest text-white/90 flex items-center gap-1 shadow-sm border border-white/20 pointer-events-none">
+                            <i data-lucide="camera" class="w-3 h-3"></i> Referencial
+                        </div>
+                        <img src="gatito_naranja_2.png" alt="Fuego" class="w-full h-full object-cover transform transition-transform duration-700 hover:scale-110">
+                        <div class="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest text-brand-500 flex items-center gap-1 shadow-sm">
+                            <i data-lucide="zap" class="w-3 h-3"></i> Team Naranja
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-2xl font-black text-stone-800 mb-0.5">Fuego</h3>
+                    <p class="text-brand-500 font-bold text-[13px] mb-4">Dormilón y Mimoso</p>
+                    <button onclick="openModal('gatito_naranja_2.png', 'Fuego', 'Naranja', 'El dormilón empedernido. Su sitio favorito en el universo es cualquier manta suave que le coloques. Súper cariñoso; una máquina generadora de ronroneos puros.', 'Macho', '45 días', 'Ronroneador Empedernido')" 
+                            class="w-full bg-stone-50 hover:bg-brand-50 text-stone-500 hover:text-brand-600 font-bold py-3.5 rounded-2xl transition-all text-[15px] flex items-center justify-center gap-2">
+                        Ver Perfil <i data-lucide="paw-print" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- GATITO 4 (NEGRO) -->
+                <div data-color="negro" class="kitten-card snap-start shrink-0 w-[260px] md:w-[290px] bg-white rounded-[2rem] p-4 shadow-xl shadow-stone-400/5 hover:-translate-y-2 card-transition border border-stone-50 relative">
+                    <div class="absolute top-4 right-4 z-30 bg-green-100 text-green-700 border-2 border-brand-50 font-black text-[10px] uppercase tracking-widest px-4 py-1.5 rounded-full shadow-md flex items-center gap-1.5 pointer-events-none">
+                        <div class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div> Disponible
+                    </div>
+
+                    <div class="relative w-full h-[300px] rounded-3xl overflow-hidden mb-4 border-[3px] border-stone-100 cursor-pointer"
+                         onclick="openModal('gatito_negro_2.png', 'Luna', 'Negro', 'Una delicada sombrita de amor que ronronea más fuerte que un motor. Le fascina que la mimen, dormir pegadita a tu cuello y contarte mediante maulliditos lo lindo que fue su día.', 'Hembra', '45 días', 'Súper Mimosita')">
+                        <!-- CAMBIAR 'gatito_negro_2.png' POR LA URL EN DRIVE -->
+                        <div class="absolute top-3 left-3 z-20 bg-black/50 backdrop-blur-sm px-2 py-1 rounded-[6px] text-[8px] font-black uppercase tracking-widest text-white/90 flex items-center gap-1 shadow-sm border border-white/20 pointer-events-none">
+                            <i data-lucide="camera" class="w-3 h-3"></i> Referencial
+                        </div>
+                        <img src="gatito_negro_2.png" alt="Luna" class="w-full h-full object-cover transform transition-transform duration-700 hover:scale-110">
+                        <div class="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest text-stone-700 flex items-center gap-1 shadow-sm">
+                            <i data-lucide="moon" class="w-3 h-3"></i> Team Negro
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-2xl font-black text-stone-800 mb-0.5">Luna</h3>
+                    <p class="text-stone-500 font-bold text-[13px] mb-4">Nube de Ronroneos</p>
+                    <button onclick="openModal('gatito_negro_2.png', 'Luna', 'Negro', 'Una delicada sombrita de amor que ronronea más fuerte que un motor. Le fascina que la mimen, dormir pegadita a tu cuello y contarte mediante maulliditos lo lindo que fue su día.', 'Hembra', '45 días', 'Súper Mimosita')" 
+                            class="w-full bg-stone-50 hover:bg-stone-100 text-stone-500 hover:text-stone-700 font-bold py-3.5 rounded-2xl transition-all text-[15px] flex items-center justify-center gap-2">
+                        Ver Perfil <i data-lucide="paw-print" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- GATITO 5 (NARANJA) -->
+                <div data-color="naranja" class="kitten-card snap-start shrink-0 w-[260px] md:w-[290px] bg-white rounded-[2rem] p-4 shadow-xl shadow-brand-500/5 hover:-translate-y-2 card-transition border border-stone-50 relative">
+                    <div class="absolute top-4 right-4 z-30 bg-green-100 text-green-700 border-2 border-brand-50 font-black text-[10px] uppercase tracking-widest px-4 py-1.5 rounded-full shadow-md flex items-center gap-1.5 pointer-events-none">
+                        <div class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div> Disponible
+                    </div>
+
+                    <div class="relative w-full h-[300px] rounded-3xl overflow-hidden mb-4 border-[3px] border-brand-50 cursor-pointer"
+                         onclick="openModal('gatito_naranja_3.png', 'Rayo', 'Naranja', 'El más valiente y aventurero. Cualquier sonido o juguete nuevo captará su atención inmediatamente. Está listísimo para descubrir todas sus nuevas aventuras a tu lado.', 'Macho', '45 días', 'Aventurero Intrépido')">
+                        <!-- CAMBIAR 'gatito_naranja_3.png' POR LA URL EN DRIVE -->
+                        <div class="absolute top-3 left-3 z-20 bg-black/50 backdrop-blur-sm px-2 py-1 rounded-[6px] text-[8px] font-black uppercase tracking-widest text-white/90 flex items-center gap-1 shadow-sm border border-white/20 pointer-events-none">
+                            <i data-lucide="camera" class="w-3 h-3"></i> Referencial
+                        </div>
+                        <img src="gatito_naranja_3.png" alt="Rayo" class="w-full h-full object-cover transform transition-transform duration-700 hover:scale-110">
+                        <div class="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest text-brand-500 flex items-center gap-1 shadow-sm">
+                            <i data-lucide="zap" class="w-3 h-3"></i> Team Naranja
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-2xl font-black text-stone-800 mb-0.5">Rayo</h3>
+                    <p class="text-brand-500 font-bold text-[13px] mb-4">Súper Valiente</p>
+                    <button onclick="openModal('gatito_naranja_3.png', 'Rayo', 'Naranja', 'El más valiente y aventurero. Cualquier sonido o juguete nuevo captará su atención inmediatamente. Está listísimo para descubrir todas sus nuevas aventuras a tu lado.', 'Macho', '45 días', 'Aventurero Intrépido')" 
+                            class="w-full bg-stone-50 hover:bg-brand-50 text-stone-500 hover:text-brand-600 font-bold py-3.5 rounded-2xl transition-all text-[15px] flex items-center justify-center gap-2">
+                        Ver Perfil <i data-lucide="paw-print" class="w-4 h-4"></i>
+                    </button>
+                </div>
+                
+                <!-- Spacer estricto FINAL para que el último card encaje en desktop -->
+                <div class="kitten-card shrink-0 w-8 md:w-32 h-10 border-0"></div>
+            </div>
+
+            <p class="text-[12px] md:text-[13px] text-stone-400 text-center font-bold px-4 pt-2"> <strong class="text-brand-500">*</strong> Las imágenes cargadas visualmente son referenciales como prueba de concepto. </p>
+        </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- CAPÍTULO 3: LA DECISIÓN (Cuidado & Kit)        -->
+    <!-- ============================================== -->
+    <section id="capitulo-3" class="max-w-4xl mx-auto px-6 py-20">
+        <div class="text-center mb-12">
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-brand-50 text-brand-500 rounded-full font-bold text-sm tracking-wide mb-6 border border-brand-100 shadow-sm">
+                <i data-lucide="check-circle" class="w-4 h-4"></i> Capítulo 3
+            </div>
+            <h2 class="text-3xl md:text-4xl font-black text-stone-700">La Decisión</h2>
+            <p class="text-stone-500 font-medium mt-3">Al ser neonatos, necesitarán de tu completa responsabilidad. ¿Estás listo?</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <!-- Tip 1 -->
+            <div class="bg-white p-6 rounded-[2rem] border border-stone-100 shadow-sm text-center transform hover:scale-105 transition-all">
+                <div class="w-14 h-14 mx-auto bg-brand-50 text-brand-500 rounded-2xl flex items-center justify-center mb-4">
+                    <i data-lucide="cat" class="w-7 h-7"></i>
+                </div>
+                <h3 class="font-bold text-stone-700 mb-2">Biberón Frecuente</h3>
+                <p class="text-[13px] text-stone-500">Dado que tienen 45 días, muchos aún requerirán suplemento de leche maternizada especial.</p>
+            </div>
+            <!-- Tip 2 -->
+            <div class="bg-white p-6 rounded-[2rem] border border-stone-100 shadow-sm text-center transform hover:scale-105 transition-all">
+                <div class="w-14 h-14 mx-auto bg-brand-50 text-brand-500 rounded-2xl flex items-center justify-center mb-4">
+                    <i data-lucide="flame" class="w-7 h-7"></i>
+                </div>
+                <h3 class="font-bold text-stone-700 mb-2">Calor Constante</h3>
+                <p class="text-[13px] text-stone-500">Aún no regulan el calor perfectamente. Mantas térmicas o bolsitas de agua tibia son vitales en su camita.</p>
+            </div>
+            <!-- Tip 3 -->
+            <div class="bg-white p-6 rounded-[2rem] border border-stone-100 shadow-sm text-center transform hover:scale-105 transition-all">
+                <div class="w-14 h-14 mx-auto bg-brand-50 text-brand-500 rounded-2xl flex items-center justify-center mb-4">
+                    <i data-lucide="heart-pulse" class="w-7 h-7"></i>
+                </div>
+                <h3 class="font-bold text-stone-700 mb-2">Revisiones Médicas</h3>
+                <p class="text-[13px] text-stone-500">Compromiso firme con desparasitación inicial y vacunas cuando alcancen los 60 días seguros.</p>
+            </div>
+        </div>
+
+        <!-- Kit de Bienvenida -->
+        <div class="bg-stone-800 rounded-[2.5rem] p-8 md:p-10 text-white shadow-xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-48 h-48 bg-stone-700 rounded-full blur-[80px] opacity-50 -mr-10 -mt-10"></div>
+            <div class="relative z-10 flex flex-col md:flex-row items-center gap-8">
+                <div class="flex-1">
+                    <h3 class="text-2xl font-black mb-3">Tu Kit de Bienvenida</h3>
+                    <p class="text-stone-300 text-sm mb-6 leading-relaxed">Antes de la entrega oficial a los 45-60 días, asegúrate de alistar tu hogar preparando de antemano lo básico:</p>
+                    <ul class="text-sm font-medium space-y-3">
+                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-brand-400 drop-shadow"></i> Arenero de bordes bajos con arena no aglomerante de inicio.</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-brand-400 drop-shadow"></i> Leche maternizada para felinos.</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-brand-400 drop-shadow"></i> Transportadora segura y mantitas polares.</li>
+                    </ul>
+                </div>
+                <div class="w-32 h-32 md:w-40 md:h-40 bg-stone-700 rounded-[2rem] shrink-0 border-4 border-stone-600/50 flex flex-col items-center justify-center text-brand-300">
+                    <i data-lucide="package-open" class="w-12 h-12 mb-2"></i>
+                    <span class="text-xs font-bold tracking-widest uppercase text-stone-200">Prepárate</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- CAPÍTULO 4: EL COMPROMISO                      -->
+    <!-- ============================================== -->
+    <section id="capitulo-4" class="max-w-4xl mx-auto px-6 pt-10 pb-20">
+        <div class="bg-gradient-to-tr from-brand-100/50 to-white border-2 border-brand-100 rounded-[3rem] p-8 md:p-14 text-center shadow-soft relative overflow-hidden">
+            <i data-lucide="star" class="absolute top-10 left-10 w-8 h-8 text-brand-200 animate-pulse hidden md:block"></i>
+            <i data-lucide="sparkle" class="absolute bottom-10 right-10 w-10 h-10 text-brand-200 animate-pulse hidden md:block"></i>
+            
+            <div class="flex justify-center relative z-10">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-brand-50 text-brand-500 rounded-full font-bold text-sm tracking-wide mb-6 border border-brand-100 shadow-sm">
+                    <i data-lucide="heart-handshake" class="w-4 h-4"></i> Capítulo 4
+                </div>
+            </div>
+            <h2 class="text-3xl md:text-5xl font-black text-stone-800 mb-6 tracking-tight relative z-10">El Compromiso Ideal</h2>
+            <p class="text-stone-600 text-[15px] md:text-lg mb-10 max-w-2xl mx-auto font-medium">
+                Rescatar es el primer paso, pero <strong>una verdadera adopción transforma dos vidas</strong>. Completarás un breve y sencillo cuestionario para avalar que eres el papá o mamá ideal para ellos.
+            </p>
+            
+            <!-- ENLACE PARA GOOGLE FORMS APROBADO -->
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSd0VAuCNwwP78vOv7-oF-H4Nfr-3v5KWfgdTAFxYjCPJA2apQ/viewform?usp=sharing&ouid=103315674284494759416" 
+               target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center gap-3 bg-brand-500 hover:bg-brand-600 text-white text-lg md:text-xl font-bold py-5 px-10 rounded-full shadow-[0_15px_30px_rgba(244,63,94,0.3)] hover:shadow-[0_20px_40px_rgba(244,63,94,0.4)] transform hover:-translate-y-1 transition-all group">
+                Llenar Formulario <i data-lucide="arrow-up-right" class="w-6 h-6 group-hover:rotate-12 transition-transform"></i>
+            </a>
+            <p class="text-[12px] text-stone-400 mt-4 font-bold flex items-center justify-center gap-1.5"><i data-lucide="lock" class="w-3 h-3"></i> Serás redirigido a Google Forms de manera segura.</p>
+        </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- VISTAS INTERACTIVAS (MODAL DE SALUD)           -->
+    <!-- ============================================== -->
+    <div id="modal-backdrop" class="fixed inset-0 z-40 bg-stone-900/60 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300" onclick="closeModal()"></div>
+
+    <!-- Mantiene el mismo Modal original con retoques de diseño -->
+    <div id="kitten-modal" class="fixed inset-x-0 bottom-0 sm:inset-0 z-50 hidden items-end sm:items-center justify-center pointer-events-none p-0 sm:p-4">
+        
+        <div id="modal-panel" class="bg-white w-full sm:w-[450px] rounded-t-[2.5rem] sm:rounded-3xl shadow-2xl pointer-events-auto transform translate-y-full sm:translate-y-8 sm:opacity-0 transition-all duration-300 relative overflow-hidden max-h-[90vh] flex flex-col">
+            
+            <!-- Botón de Cerrar -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 z-20 w-10 h-10 bg-black/30 hover:bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button> 
+
+            <!-- Imagen grande del modal -->
+            <div class="w-full h-64 sm:h-72 relative shrink-0 bg-stone-100">
+                <div class="absolute top-4 left-4 z-20 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-[8px] text-[9px] font-black uppercase tracking-widest text-white/90 flex items-center gap-1.5 border border-white/20">
+                    <i data-lucide="camera" class="w-3.5 h-3.5"></i> Imagen Referencial
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-stone-900/70 to-transparent z-10"></div>
+                <img id="modal-img" src="" alt="Zoom Foto" class="w-full h-full object-cover">
+                <div class="absolute bottom-4 left-6 z-20">
+                    <h2 id="modal-title" class="text-4xl font-black text-white capitalize [text-shadow:_0_2px_10px_rgb(0_0_0_/_40%)] mb-1">Nombre</h2>
+                    <p id="modal-personality" class="text-brand-300 font-bold uppercase tracking-widest text-xs">Personalidad</p>
+                </div>
+            </div>
+
+            <div class="px-6 py-4 overflow-y-auto">
+                <h4 class="text-[11px] font-black text-stone-400 uppercase tracking-widest mb-3 border-b-2 border-stone-50 pb-2">Acerca de Mí</h4>
+                <p id="modal-desc" class="text-[14px] font-medium text-stone-600 mb-5 leading-relaxed">
+                    Descripción del gatito elegida dinamicamente...
+                </p>
+
+                <!-- Tarjetitas de estado -->
+                <div class="flex gap-3 mb-6">
+                    <div class="flex-1 bg-brand-50/50 border-[2px] border-brand-50 p-3 rounded-2xl flex items-center gap-3">
+                        <div class="bg-white p-2 rounded-xl text-brand-400 shadow-sm border border-brand-50">
+                            <i data-lucide="calendar" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-black uppercase text-stone-400 tracking-widest leading-none">Edad</p>
+                            <p id="modal-age" class="text-[13px] font-black text-stone-700 mt-1 leading-none">45 días</p>
+                        </div>
+                    </div>
+                    <div class="flex-1 bg-brand-50/50 border-[2px] border-brand-50 p-3 rounded-2xl flex items-center gap-3">
+                        <div class="bg-white p-2 rounded-xl text-brand-400 shadow-sm border border-brand-50">
+                            <i data-lucide="activity" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-black uppercase text-stone-400 tracking-widest leading-none">Salud</p>
+                            <p class="text-[13px] font-black text-green-600 mt-1 leading-none">Sano ✔</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botón hacia WhatsApp como quería el usuario originalmente desde el afiche -->
+                <a id="adopt-btn" href="#" target="_blank" 
+                   class="w-full bg-[#25D366] hover:bg-[#128C7E] text-white p-4 rounded-[1.25rem] font-bold text-[16px] flex items-center justify-center gap-3 transition-transform hover:-translate-y-1 active:translate-y-0 shadow-[0_8px_20px_-5px_rgba(37,211,102,0.4)]">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i> Contactar por WhatsApp
+                </a>
+                
+                <!-- NUEVO: RECUADRO LLAMATIVO PARA EL FORMS -->
+                <div class="mt-4 bg-brand-50 border-l-4 border-brand-500 px-4 py-3 rounded-r-xl shadow-sm text-center md:text-left">
+                    <a href="#capitulo-4" onclick="closeModal()" class="block group">
+                        <p class="text-[12px] text-brand-800 font-medium mb-1">
+                            Si tienes dudas médicas envíanos un WhatsApp.
+                        </p>
+                        <p class="text-[13px] sm:text-[14px] text-brand-900 font-black flex items-center justify-center md:justify-start gap-1 group-hover:underline">
+                            Si ya quieres adoptar, ve al Cuestionario del Capítulo 4 <i data-lucide="arrow-right" class="w-4 h-4 text-brand-600 group-hover:translate-x-1 transition-transform"></i>
+                        </p>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div> 
+
+    <!-- SCRIPTS -->
+    <script>
+        // Inicializar Iconos de Lucide
+        lucide.createIcons();
+
+        // 1. Lógica del Carrusel (Flechas Desktop)
+        function scrollCarousel(direction) {
+            const carousel = document.getElementById('carousel-container');
+            const scrollAmount = window.innerWidth < 768 ? 264 : 310; 
+            carousel.scrollBy({ left: direction * (scrollAmount + 10), behavior: 'smooth' });
+        }
+
+        // 2. Lógica de los FILTROS por COLOR interactivos
+        function filterKittens(type) {
+            const allCards = document.querySelectorAll('.kitten-card[data-color]');
+            
+            // Botones visual state
+            const btnAll = document.getElementById('btn-filter-all');
+            const btnNar = document.getElementById('btn-filter-naranja');
+            const btnNeg = document.getElementById('btn-filter-negro');
+            
+            // Reset de estilos de botones
+            [btnAll, btnNar, btnNeg].forEach(btn => {
+                btn.className = "px-5 py-2 rounded-full text-sm font-bold text-stone-500 hover:text-stone-700 transition-all border border-transparent";
+            });
+
+            // Resaltar el botón presionado
+            if(type === 'all') btnAll.className = "px-5 py-2 rounded-full text-sm font-bold bg-white shadow-sm text-stone-700 transition-all border border-stone-100";
+            if(type === 'naranja') btnNar.className = "px-5 py-2 rounded-full text-sm font-bold bg-white shadow-sm text-stone-700 transition-all border border-stone-100";
+            if(type === 'negro') btnNeg.className = "px-5 py-2 rounded-full text-sm font-bold bg-white shadow-sm text-stone-700 transition-all border border-stone-100";
+
+            // Mostrar/Ocultar y reiniciar el scroll a 0
+            const carouselContainer = document.getElementById('carousel-container');
+            carouselContainer.scrollTo({ left: 0, behavior: 'instant' });
+
+            setTimeout(() => {
+                allCards.forEach(card => {
+                    if (type === 'all' || card.getAttribute('data-color') === type) {
+                        card.classList.remove('hidden-card');
+                    } else {
+                        card.classList.add('hidden-card');
+                    }
+                });
+            }, 50); // pequeñito delay
+        }
+
+        // 3. Lógica del MODAL INTERACTIVO
+        const backdrop = document.getElementById('modal-backdrop');
+        const modalContainer = document.getElementById('kitten-modal');
+        const modalPanel = document.getElementById('modal-panel');
+        
+        const mImg = document.getElementById('modal-img');
+        const mTitle = document.getElementById('modal-title');
+        const mDesc = document.getElementById('modal-desc');
+        const mPers = document.getElementById('modal-personality');
+        const mAge = document.getElementById('modal-age');
+        const adoptBtn = document.getElementById('adopt-btn');
+
+        function openModal(imageSrc, name, type, desc, gender, age, personality) {
+            // Llenar datos
+            mImg.src = imageSrc;
+            mTitle.textContent = name;
+            mDesc.textContent = desc;
+            mPers.textContent = personality;
+            mAge.textContent = age;
+            
+            // Link Dinámico de WhatsApp conservado
+            const rawMsg = `¡Hola Roberth! Revisé la Galería Estelar y deseo conocer más datos/requisitos para el minino de perfil "${name}" (${type}).`;
+            adoptBtn.href = `https://wa.me/51982212762?text=${encodeURIComponent(rawMsg)}`;
+
+            // Mostrar display blocks y clases para la animación de entrada
+            backdrop.classList.remove('hidden');
+            modalContainer.classList.remove('hidden');
+            modalContainer.classList.add('flex');
+
+            requestAnimationFrame(() => {
+                backdrop.classList.remove('opacity-0');
+                modalPanel.classList.remove('translate-y-full', 'sm:translate-y-8', 'sm:opacity-0');
+            });
+        }
+
+        function closeModal() {
+            backdrop.classList.add('opacity-0');
+            modalPanel.classList.add('translate-y-full', 'sm:translate-y-8', 'sm:opacity-0');
+            
+            setTimeout(() => {
+                backdrop.classList.add('hidden');
+                modalContainer.classList.remove('flex');
+                modalContainer.classList.add('hidden');
+            }, 300);
+        }
+    </script>
+</body>
+</html>
